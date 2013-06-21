@@ -3,17 +3,7 @@
 var path = require("path");
 
 module.exports =  {
-    receiver: {
-        port : process.env.RECEIVER_PORT || 3300,
-    },
-    analyser: {
-        port: process.env.ANALYSER_PORT || 3301
-    },
     secret : "this is a secret",
-    sockets : {
-        receiver: path.join(__dirname, "..", "tmp", "rauschen.sock"),
-        processor: path.join(__dirname, "..", "tmp", "processor.sock"),
-    },
     db : {
         host: "localhost",
         port: 27017,

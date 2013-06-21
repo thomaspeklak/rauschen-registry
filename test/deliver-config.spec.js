@@ -1,27 +1,25 @@
 "use strict";
-/*global describe:false, it:false, before: false, after: false, beforeEach: false, afterEach: false, expect:false */
+/*global describe:false, it:false, before: false, after: false, beforeEach: false, afterEach: false */
 process.env.NODE_ENV = "test";
 
 var expect = require("chai").expect;
 var seaport = require("seaport");
-var request = require("request");
-var version = require("../package").version;
-
+var server = require("../server");
+var client = require("../client");
 
 describe("Registry", function () {
     it("should delivery the rauschen config", function (done) {
-        var port = seaport.createServer();
-        port.listen();
-        require("../app")("localhost", port.address().port);
+        var ports = seaport.createServer();
+        ports.listen();
+        var port = ports.address().port;
 
-        port.get("registry@" + version, function (ps) {
-            request.get("http://localhost:" + ps[0].port, function (err, res) {
-                var body = JSON.parse(res.body);
+        server("localhost", port);
 
-                expect(body.domains).to.include("test.com");
-                done();
-            });
+        var config = client("localhost", port);
+        config.on("update", function () {
+            var data = config.get("config");
+            expect(data.domains).to.include("test.com");
+            done();
         });
-
     });
 });
