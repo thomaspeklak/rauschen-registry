@@ -14,5 +14,5 @@ server("localhost", port);
 
 var config = client("localhost", port);
 config.on("update", function () {
-    console.dir(config.get("config"));
+    console.dir(config.get("data"));
 });

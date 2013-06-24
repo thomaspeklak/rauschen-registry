@@ -6,7 +6,7 @@ var configValues = require("./config");
 var version = require("./package").version;
 var Scuttlebutt = require("scuttlebutt/model");
 var config = new Scuttlebutt();
-config.set("config", configValues);
+config.set("data", configValues);
 
 module.exports = function (host, port) {
     var ports = seaport.connect(host, port);
