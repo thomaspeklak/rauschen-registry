@@ -14,5 +14,7 @@ module.exports = function (host, port) {
     var server = net.createServer(function (stream) {
         stream.pipe(config.createStream()).pipe(stream);
     });
-    server.listen(ports.register("registry@" + version));
+    var registryPort = ports.register("registry@" + version);
+    server.listen(registryPort);
+    console.log("registry@" + version + " started on " + registryPort);
 };
