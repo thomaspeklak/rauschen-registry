@@ -17,7 +17,7 @@ describe("Registry", function () {
 
         var config = client("localhost", port);
         config.on("update", function () {
-            var data = config.get("config");
+            var data = config.get("data");
             expect(data.domains).to.include("test.com");
             done();
         });
